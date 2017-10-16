@@ -3,7 +3,40 @@
 <h1>Update your profile</h1>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= render 'form' %>
+    <%= form_for(@user) do |f| %>
+      <%= render 'shared/error_messages', object: @user %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+
+      <%= f.label :birth_day %>
+      <%= f.date_field :birth_day, class: 'form-control' %>
+
+      <%= f.label :gender %>
+      <div class="form-inline">
+      <%= f.radio_button :gender, "1", checked: (@user.gender == 1), class: 'form-control' %>
+      <%= f.label :status, "Male", value: '1' %>
+      <%= f.radio_button :gender, "2", checked: (@user.gender == 2), class: 'form-control' %>
+      <%= f.label :status, "Female", value: '2' %>
+      </div>
+
+      <%= f.label :phone %>
+      <%= f.text_field :phone, class: 'form-control' %>
+
+      <%= f.label :language %>
+      <%= f.select :language, options_for_select(User::LANGUAGES.map { |k, v|  [v, k]}, @user.language), class: 'form-control' %>
+
+      <%= f.label :admin, "Role" %>
+      <div class="form-inline">
+      <%= f.check_box :admin, {class: 'form-control'}, true, false %>
+      <%= f.label :admin, "Admin" %>
+      </div>
+
+      <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+    <% end %>
     <div class="gravatar_edit">
       <%= gravatar_for @user %>
       <a href="http://gravatar.com/emails" target="_blank">Change</a>
