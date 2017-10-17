@@ -54,7 +54,7 @@ class UsersController < ApplicationController
     end
 
     def user_edit_params
-      params.require(:user).permit(:name, :email, :birth_day, :gender, :phone, :language)
+      params.require(:user).permit(:name, :email, :birth_day, :gender, :phone, :language, :admin)
     end
 
     # Before filters
